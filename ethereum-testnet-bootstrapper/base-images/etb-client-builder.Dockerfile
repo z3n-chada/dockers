@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     lsb-release \
     software-properties-common \
     apt-transport-https \
-    openjdk-17-jre \
+    openjdk-17-jdk \
     ca-certificates \
     build-essential \
     wget \
@@ -52,7 +52,7 @@ run apt-get update && apt-get install -y --no-install-recommends nodejs
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH \
-    RUST_VERSION=1.60.0
+    RUST_VERSION=1.58.1
 
 RUN set -eux; \
     dpkgArch="$(dpkg --print-architecture)"; \
@@ -67,7 +67,7 @@ RUN set -eux; \
     wget "$url"; \
     echo "${rustupSha256} *rustup-init" | sha256sum -c -; \
     chmod +x rustup-init; \
-    ./rustup-init -y --no-modify-path --profile minimal --default-toolchain nightly --default-host ${rustArch}; \
+    ./rustup-init -y --no-modify-path --profile minimal --default-toolchain ${RUST_VERSION} --default-host ${rustArch}; \
     rm rustup-init; \
     chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
     rustup --version; \
