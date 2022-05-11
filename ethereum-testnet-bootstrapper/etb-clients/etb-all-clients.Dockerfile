@@ -1,5 +1,5 @@
 # all of the built execution clients.
-from besu:main as besu_builder
+from besu:develop as besu_builder
 from erigon:devel as erigon_builder
 from geth:master as geth_builder
 from nethermind:kiln as nethermind_builder
