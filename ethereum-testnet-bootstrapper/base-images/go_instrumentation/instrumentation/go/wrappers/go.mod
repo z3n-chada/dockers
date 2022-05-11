@@ -1,3 +1,3 @@
-module antithesis.com/instrumentation/wrappers
+module antithesis.com/go/instrumentation
 
 go 1.14
