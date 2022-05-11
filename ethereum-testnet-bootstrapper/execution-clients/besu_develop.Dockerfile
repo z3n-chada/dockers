@@ -4,7 +4,7 @@ from z3nchada/etb-client-builder:latest as base
 
 WORKDIR /usr/src 
 
-ARG BESU_BRANCH="main"
+ARG BESU_BRANCH="develop"
 
 from base as builder
 
