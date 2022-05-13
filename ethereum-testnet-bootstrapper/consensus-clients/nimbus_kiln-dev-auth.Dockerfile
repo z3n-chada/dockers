@@ -8,8 +8,8 @@ RUN git clone https://github.com/status-im/nimbus-eth2.git
 
 RUN cd nimbus-eth2 && git checkout ${BRANCH}
 
-RUN cd nimbus-eth2 && make -j64 nimbus_beacon_node NIMFLAGS="--cc:clang --clang.exe:clang-13 --clang.linkerexe:clang-13" \
-                   && make -j64 nimbus_validator_client NIMFLAGS="--cc:clang --clang.exe:clang-13 --clang.linkerexe:clang-13"
+RUN cd nimbus-eth2 && make -j64 nimbus_beacon_node NIMFLAGS="--cc:clang --clang.exe:clang-15 --clang.linkerexe:clang-15" \
+                   && make -j64 nimbus_validator_client NIMFLAGS="--cc:clang --clang.exe:clang-15 --clang.linkerexe:clang-15"
 
 from debian:bullseye-slim
 
