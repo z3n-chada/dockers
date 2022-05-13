@@ -1,5 +1,5 @@
 # all of the built execution clients.
-from besu:main as besu_builder
+from besu:develop as besu_builder
 from erigon:devel as erigon_builder
 from geth:master as geth_builder
 from nethermind:kiln as nethermind_builder
@@ -33,6 +33,7 @@ copy --from=nimbus_builder /usr/local/bin/nimbus_beacon_node /usr/local/bin/nimb
 copy --from=nimbus_builder /usr/local/bin/nimbus_validator_client /usr/local/bin/nimbus_validator_client
 copy --from=prysm_builder /usr/local/bin/beacon-chain /usr/local/bin/beacon-chain
 copy --from=prysm_builder /usr/local/bin/validator /usr/local/bin/validator
+COPY --from=prysm_builder /opt/antithesis/symbols/* /opt/antithesis/symbols/
 copy --from=teku_builder /opt/teku /opt/teku
 run ln -s /opt/teku/bin/teku /usr/local/bin/teku
 copy --from=ls_builder /usr/app/ /usr/app/
