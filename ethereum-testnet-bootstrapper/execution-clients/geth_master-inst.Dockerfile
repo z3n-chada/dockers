@@ -1,4 +1,4 @@
-FROM z3nchada/etb-client-builder:latest as base
+FROM etb-client-builder:latest as base
 
 from base as builder
 
@@ -28,7 +28,7 @@ RUN cd go-ethereum \
     && CGO_CFLAGS="-I/opt/antithesis/go_instrumentation/include" CGO_LDFLAGS="-L/opt/antithesis/go_instrumentation/lib" go install ./...
 
 
-FROM z3nchada/etb-client-runner
+FROM etb-client-runner
 
 COPY --from=builder /root/go/bin/geth /usr/local/bin/geth
 COPY --from=builder /root/go/bin/bootnode /usr/local/bin/bootnode
