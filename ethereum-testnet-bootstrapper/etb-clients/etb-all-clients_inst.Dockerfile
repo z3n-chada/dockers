@@ -1,7 +1,7 @@
 # all of the built execution clients.
 from besu:develop as besu_builder
 from erigon:devel as erigon_builder
-from geth:master as geth_builder
+from geth:master-inst as geth_builder
 from nethermind:kiln as nethermind_builder
 from geth:bad-block-creator as geth_bad_block_builder
 from tx-fuzzer:latest as tx_fuzzer_builder
@@ -19,8 +19,9 @@ copy --from=tx_fuzzer_builder /run/tx-fuzz.bin /usr/local/bin/tx-fuzz
 copy --from=geth_bad_block_builder /usr/local/bin/geth-bad-block /usr/local/bin/geth-bad-block-creator
 copy --from=geth_builder /usr/local/bin/geth /usr/local/bin/geth
 copy --from=geth_builder /usr/local/bin/bootnode /usr/local/bin/bootnode
+copy --from=geth_builder /opt/antithesis/symbols/* /opt/antithesis/symbols/
 copy --from=besu_builder /opt/besu /opt/besu
-run ln -s /opt/besu/bin/besu /usr/local/bin/besu 
+run ln -s /opt/besu/bin/besu /usr/local/bin/besu
 copy --from=nethermind_builder /nethermind/ /nethermind/
 run ln -s /nethermind/Nethermind.Runner /usr/local/bin/nethermind
 copy --from=erigon_builder /usr/local/bin/erigon /usr/local/bin/erigon
