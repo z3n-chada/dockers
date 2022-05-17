@@ -3,7 +3,7 @@ from besu:develop as besu_builder
 from erigon:devel as erigon_builder
 from geth:master-inst as geth_builder
 from nethermind:kiln as nethermind_builder
-from geth:bad-block-creator as geth_bad_block_builder
+from geth:bad-block-creator-inst as geth_bad_block_builder
 from tx-fuzzer:latest as tx_fuzzer_builder
 from lighthouse:unstable-inst as lh_builder
 from nimbus:kiln-dev-auth-inst as nimbus_builder
