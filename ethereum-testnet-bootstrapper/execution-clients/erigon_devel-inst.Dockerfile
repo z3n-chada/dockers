@@ -34,15 +34,13 @@ RUN cd erigon && go mod edit -require=antithesis.com/instrumentation/wrappers@v1
 # Get dependencies
 RUN cd /git/erigon/ && go get -t -d ./...
 
+# TODO revisit once non-instrumented version is working
 run cd erigon/ \
     && CGO_CFLAGS="-I/opt/antithesis/go_instrumentation/include" CGO_LDFLAGS="-L/opt/antithesis/go_instrumentation/lib" make erigon
-
-# cd ./cmd/erigon && CGO_CFLAGS="-I/opt/antithesis/go_instrumentation/include  -DMDBX_FORCE_ASSERTIONS=1 " go build -trimpath -tags nosqlite,noboltdb -buildvcs=false -ldflags "-X github.com/ledgerwatch/erigon/params.GitCommit=e02c77bf5a24a936d21960c303185e69147a20d7 -X github.com/ledgerwatch/erigon/params.GitBranch=devel -X github.com/ledgerwatch/erigon/params.GitTag=v2022.05.03 -X /opt/antithesis/go_instrumentation/lib" -o /git/erigon/build/bin/erigon
-
 
 FROM etb-client-runner
 
 copy --from=builder /git/erigon/build/bin/erigon /usr/local/bin/erigon
-# COPY --from=builder /git/erigon_instrumented/symbols/* /opt/antithesis/symbols/
+COPY --from=builder /git/erigon_instrumented/symbols/* /opt/antithesis/symbols/
 
 ENTRYPOINT ["/bin/bash"]
