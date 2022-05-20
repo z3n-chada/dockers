@@ -1,6 +1,6 @@
 FROM etb-client-builder as builder
 
-COPY antitheis-rand-source__oracles.patch /opt/antithesis/patch/antithesis.patch
+COPY ant-merge-bad-block-creator.patch /opt/antithesis/patch/antithesis.patch
 
 RUN git clone https://github.com/MariusVanDerWijden/go-ethereum.git \
     && cd go-ethereum \
