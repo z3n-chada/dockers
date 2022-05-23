@@ -1,11 +1,9 @@
 FROM etb-client-builder as builder
 
-COPY ant-merge-bad-block-creator.patch /opt/antithesis/patch/antithesis.patch
-
-RUN git clone https://github.com/MariusVanDerWijden/go-ethereum.git \
+# RUN git clone https://github.com/MariusVanDerWijden/go-ethereum.git \
+RUN git clone https://github.com/edwards-antithesis/go-ethereum \
     && cd go-ethereum \
-    && git checkout merge-bad-block-creator \
-    && git apply /opt/antithesis/patch/antithesis.patch\
+    && git checkout ant-merge-bad-block-creator \
     && make geth
 
 FROM etb-client-runner
