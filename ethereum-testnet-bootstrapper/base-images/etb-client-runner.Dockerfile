@@ -40,4 +40,6 @@ RUN rm -rf /git
 
 RUN mkdir -p /git
 
+run apt install valgrind
+
 ENTRYPOINT ["/bin/bash"]

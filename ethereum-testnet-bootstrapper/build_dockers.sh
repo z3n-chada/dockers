@@ -37,8 +37,8 @@ cd ../
 
 cd etb-clients
 
-docker build -t etb-all-clients:latest -f etb-all-clients.Dockerfile
-docker build -t etb-all-clients:latest-inst -f etb-all-clients_inst.Dockerfile
+docker build -t etb-all-clients:latest -f etb-all-clients.Dockerfile .
+docker build -t etb-all-clients:latest-inst -f etb-all-clients_inst.Dockerfile .
 
 cd ../
 

@@ -4,7 +4,9 @@ WORKDIR /git
 
 from base as builder
 
-RUN git clone https://github.com/sigp/lighthouse.git && cd lighthouse && git checkout unstable
+# RUN git clone https://github.com/sigp/lighthouse.git && cd lighthouse && git checkout unstable
+# tmp issue to figure out what is going on with erigon.
+RUN git clone https://github.com/realbigsean/lighthouse.git && cd lighthouse && git checkout payload-unavailable-status
 
 RUN cd lighthouse && make 
 
