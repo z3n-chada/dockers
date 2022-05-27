@@ -1,4 +1,4 @@
-from eth-client-builder as builder
+from z3nchada/eth-client-builder as builder
 
 run mkdir /build
 
@@ -25,19 +25,19 @@ run go build -asan -o /build
 from builder as race_builder
 run go build -race -o /build
 
-from builder as msan_builder
+# from builder as msan_builder
 
-run go env -w "CC=clang-15"
-run go env -w "CXX=clang-cpp-15"
-run go env -w "AR=llvm-ar-15"
-run go build -msan -o /build
+# run go env -w "CC=clang-15"
+# run go env -w "CXX=clang-cpp-15"
+# run go env -w "AR=llvm-ar-15"
+# run go build -msan -o /build
 
-from eth-client-runner
+from debian:bullseye-slim
 
 COPY --from=default_builder /build/geth /usr/local/bin/geth
 COPY --from=asan_builder /build/geth /usr/local/bin/geth-asan
 COPY --from=race_builder /build/geth /usr/local/bin/geth-race
-COPY --from=msan_builder /build/geth /usr/local/bin/geth-msan
+# COPY --from=msan_builder /build/geth /usr/local/bin/geth-msan
 
 
 ENTRYPOINT ["/bin/bash"]
