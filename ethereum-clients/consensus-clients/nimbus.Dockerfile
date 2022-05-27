@@ -36,7 +36,7 @@ RUN cd nimbus-eth2 && make -j64 nimbus_beacon_node NIMFLAGS="--cc:clang --clang.
                    && make -j64 nimbus_validator_client NIMFLAGS="--cc:clang --clang.exe:clang-13 --clang.linkerexe:clang-13 --passC:\"-fsanitize=undefined\" --passL:\"-fsanitize=memory\""
 
 # Pull all binaries into a second stage deploy debian container
-FROM debian:bullseye-slim
+FROM debian:bullseye-slim as base
 
 # Copy executable
 COPY --from=default_builder /git/nimbus-eth2/build/nimbus_beacon_node /usr/local/bin/nimbus_beacon_node
@@ -50,4 +50,17 @@ COPY --from=msan_builder /git/nimbus-eth2/build/nimbus_validator_client /usr/loc
 COPY --from=ubsan_builder /git/nimbus-eth2/build/nimbus_beacon_node /usr/local/bin/nimbus_beacon_node-ubsan
 COPY --from=ubsan_builder /git/nimbus-eth2/build/nimbus_validator_client /usr/local/bin/nimbus_validator_client-ubsan
 
-ENTRYPOINT ["/bin/bash"]
+
+env MSAN_SYMBOLIZER_PATH=llvm-symbolizer-13
+# run ln -s /usr/local/bin/nimbus_beacon_node-msan /usr/local/bin/nimbus_beacon_node
+# run ln -s /usr/local/bin/nimbus_validator_client-msan /usr/local/bin/nimbus_validator_client
+
+env ASAN_SYMBOLIZER_PATH=llvm-symbolizer-13
+#run ln -s /usr/local/bin/nimbus_beacon_node-asan /usr/local/bin/nimbus_beacon_node
+#run ln -s /usr/local/bin/nimbus_validator_client-asan /usr/local/bin/nimbus_validator_client
+
+env TSAN_OPTIONS="external_symbolizer_path=llvm-symbolizer-13"
+# run ln -s /usr/local/bin/nimbus_beacon_node-tsan /usr/local/bin/nimbus_beacon_node
+# run ln -s /usr/local/bin/nimbus_validator_client-tsan /usr/local/bin/nimbus_validator_client
+
+ENTRYPOINT [""]
