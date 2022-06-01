@@ -30,11 +30,9 @@ RUN cd nethermind && git submodule update --init src/Dirichlet src/int256 src/ro
 
 RUN cd /git/nethermind &&  dotnet publish src/Nethermind/Nethermind.Runner -c release -o out
 
+RUN cd /git/nethermind && git log -n 1 --format=format:"%H" > /nethermind.version
+
 from z3nchada/etb-client-runner:latest 
-
-# copy --from=builder /rocksdb/lib/ /usr/local/rocksdb/lib/
-
-# run cp /usr/local/rocksdb/lib/librocksdb.so* /usr/lib
 
 RUN apt remove git wget ca-certificates make g++ -y \
     && apt autoremove -y \
@@ -42,6 +40,7 @@ RUN apt remove git wget ca-certificates make g++ -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /git/nethermind/out /nethermind/
+COPY --from=builder /nethermind.version /nethermind.version
 
 RUN chmod +x /nethermind/Nethermind.Runner
 

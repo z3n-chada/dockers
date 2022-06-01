@@ -39,12 +39,13 @@ run go build -race -o /build ./...
 from builder as asan_builder
 run go build -asan -o /build ./...
 
-FROM z3nchada/etb-client-runner:latest
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  ca-certificates curl bash tzdata \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+# FROM z3nchada/etb-client-runner:latest
+# 
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#   ca-certificates curl bash tzdata \
+#   && apt-get clean \
+#   && rm -rf /var/lib/apt/lists/*
+from debian:bullseye-slim
 
 # Copy executable
 COPY --from=default_builder /build/beacon-chain /usr/local/bin/
@@ -54,4 +55,4 @@ COPY --from=race_builder /build/validator /usr/local/bin/validator-race
 COPY --from=asan_builder /build/beacon-chain /usr/local/bin/beacon-chain-asan
 COPY --from=asan_builder /build/validator /usr/local/bin/validator-asan
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT [""]

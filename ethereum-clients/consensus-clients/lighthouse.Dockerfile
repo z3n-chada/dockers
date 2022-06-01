@@ -22,12 +22,12 @@ run cd lighthouse && RUSTFLAGS="-Zsanitizer=memory" cargo +nightly build --relea
 from builder as leak_builder
 run cd lighthouse && RUSTFLAGS="-Zsanitizer=leak" cargo +nightly build --release --manifest-path lighthouse/Cargo.toml --target x86_64-unknown-linux-gnu --features modern --verbose --bin lighthouse
 
-from z3nchada/etb-client-runner:latest
+from debian:bullseye-slim
 
 copy --from=default_builder /git/lighthouse/target/x86_64-unknown-linux-gnu/release/lighthouse /usr/local/bin/lighthouse
 copy --from=asan_builder /git/lighthouse/target/x86_64-unknown-linux-gnu/release/lighthouse /usr/local/bin/lighthouse-asan
 copy --from=tsan_builder /git/lighthouse/target/x86_64-unknown-linux-gnu/release/lighthouse /usr/local/bin/lighthouse-tsan
 copy --from=msan_builder /git/lighthouse/target/x86_64-unknown-linux-gnu/release/lighthouse /usr/local/bin/lighthouse-msan
-copy --from=leak_builder /git/lighthouse/target/x86_64-unknown-linux-gnu/release/lighthouse /usr/local/bin/lighthouse-msan
+copy --from=leak_builder /git/lighthouse/target/x86_64-unknown-linux-gnu/release/lighthouse /usr/local/bin/lighthouse-leak
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT [""]

@@ -25,8 +25,10 @@ run cd erigon \
 run cd erigon/ \
     && make erigon
 
+RUN cd erigon && git log -n 1 --format=format:"%H" > /erigon.version
 from debian:bullseye-slim
 
 copy --from=builder /git/erigon/build/bin/erigon /usr/local/bin/erigon
+COPY --from=builder /erigon.version /erigon.version
 
 ENTRYPOINT ["/bin/bash"]
