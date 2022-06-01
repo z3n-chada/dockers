@@ -14,12 +14,13 @@ RUN git clone https://github.com/ethereum/go-ethereum \
 RUN cd go-ethereum \
     && go install ./...
     
+RUN cd go-ethereum && git log -n 1 --format=format:"%H" > /geth.version
 
 from debian:bullseye-slim
 
 COPY --from=builder /root/go/bin/geth /usr/local/bin/geth
 COPY --from=builder /root/go/bin/bootnode /usr/local/bin/bootnode
-
+COPY --from=builder /geth.version /geth.version
 
 
 ENTRYPOINT ["/bin/bash"]
