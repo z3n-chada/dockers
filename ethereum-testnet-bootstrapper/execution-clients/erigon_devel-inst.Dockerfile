@@ -24,6 +24,7 @@ run cd erigon \
 
 # add items to this exclusions list to exclude them from instrumentation
 RUN touch /opt/antithesis/go_instrumentation/exclusions.txt
+RUN echo "cmd/sentry/sentry/sentry_multi_client.go" >> /opt/antithesis/go_instrumentation/exclusions.txt
 
 # Antithesis -------------------------------------------------
 WORKDIR /git
@@ -35,12 +36,16 @@ RUN cd erigon && go mod edit -require=antithesis.com/instrumentation/wrappers@v1
 RUN cd /git/erigon/ && go get -t -d ./...
 
 # TODO revisit once non-instrumented version is working
+#  && CGO_CFLAGS="-I/opt/antithesis/go_instrumentation/include" CGO_LDFLAGS="-L/opt/antithesis/go_instrumentation/lib" make erigon
+# 
 run cd erigon/ \
-    && CGO_CFLAGS="-I/opt/antithesis/go_instrumentation/include" CGO_LDFLAGS="-L/opt/antithesis/go_instrumentation/lib" make erigon
+    && CGO_CFLAGS="-I/opt/antithesis/go_instrumentation/include" make erigon
 
+RUN cd erigon && git log -n 1 --format=format:"%H" > /erigon.version
 FROM etb-client-runner
 
 copy --from=builder /git/erigon/build/bin/erigon /usr/local/bin/erigon
 COPY --from=builder /git/erigon_instrumented/symbols/* /opt/antithesis/symbols/
+COPY --from=builder /erigon.version /erigon.version
 
 ENTRYPOINT ["/bin/bash"]

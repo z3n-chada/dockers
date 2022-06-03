@@ -1,4 +1,4 @@
-FROM z3nchada/etb-client-builder:latest as base
+FROM etb-client-builder:latest as base
 
 FROM base as builder
 
@@ -14,6 +14,8 @@ RUN cd /git/src/github.com/prysmaticlabs/ && \
     --recurse-submodules \
     --depth 1 \
     https://github.com/prysmaticlabs/prysm
+
+RUN cd /git/src/github.com/prysmaticlabs/prysm && git log -n 1 --format=format:"%H" > /prysm.version
 
 #Antithesis Instrumentation
 
@@ -48,6 +50,6 @@ COPY --from=builder /build/beacon-chain /usr/local/bin/
 COPY --from=builder /build/validator /usr/local/bin/
 COPY --from=builder /build/client-stats /usr/local/bin/
 COPY --from=builder /git/src/github.com/prysmaticlabs/prysm_instrumented/symbols/* /opt/antithesis/symbols/
-
+COPY --from=builder /prysm.version /prysm.version
 
 ENTRYPOINT ["/bin/bash"]

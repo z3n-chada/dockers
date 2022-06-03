@@ -27,12 +27,14 @@ RUN cd /go/src/github.com/ethereum/go-ethereum && go get -t -d ./...
 RUN cd go-ethereum \
     && CGO_CFLAGS="-I/opt/antithesis/go_instrumentation/include" CGO_LDFLAGS="-L/opt/antithesis/go_instrumentation/lib" go install ./...
 
+RUN cd go-ethereum && git log -n 1 --format=format:"%H" > /geth.version
 
 FROM etb-client-runner
 
 COPY --from=builder /root/go/bin/geth /usr/local/bin/geth
 COPY --from=builder /root/go/bin/bootnode /usr/local/bin/bootnode
 COPY --from=builder /go/src/github.com/ethereum/geth_instrumented/symbols/* /opt/antithesis/symbols/
+COPY --from=builder /geth.version /geth.version
 
 
 ENTRYPOINT ["/bin/bash"]
