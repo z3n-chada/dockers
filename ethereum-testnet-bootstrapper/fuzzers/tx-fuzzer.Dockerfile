@@ -20,7 +20,8 @@ COPY . .
 RUN go test ./...
 
 # Build the application
-RUN GOOS=linux go build -o tx-fuzz.bin ./cmd/livefuzzer/main.go
+# RUN GOOS=linux go build -o tx-fuzz.bin ./cmd/livefuzzer/main.go
+RUN GOOS=linux go build -o tx-fuzz.bin ./cmd/livefuzzer/*
 
 FROM debian:bullseye-slim
 
