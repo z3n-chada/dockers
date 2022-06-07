@@ -42,6 +42,7 @@ copy --from=nimbus_builder /nimbus.version /nimbus.version
 copy --from=prysm_builder /usr/local/bin/beacon-chain /usr/local/bin/beacon-chain
 copy --from=prysm_builder /usr/local/bin/validator /usr/local/bin/validator
 COPY --from=prysm_builder /opt/antithesis/symbols/* /opt/antithesis/symbols/
+COPY --from=prysm_builder /git/src/github.com/prysmaticlabs/* /git/src/github.com/prysmaticlabs/
 copy --from=prysm_builder /prysm.version /prysm.version
 copy --from=teku_builder /opt/teku /opt/teku
 copy --from=teku_builder /teku.version /teku.version
