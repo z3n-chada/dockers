@@ -16,11 +16,8 @@ arg erigon_branch="devel"
 
 run mkdir -p /build
 
-run git clone https://github.com/ledgerwatch/erigon.git
-
-run cd erigon \
-    && git checkout ${erigon_branch} \
-    && git submodule update --init
+run git clone --depth 1 --recurse-submodules -j8 \
+	https://github.com/ledgerwatch/erigon.git -b ${erigon_branch}
 
 run cd erigon/ \
     && make erigon
