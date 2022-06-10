@@ -1,6 +1,6 @@
 # all of the built execution clients.
 from besu:develop as besu_builder
-from erigon:devel as erigon_builder
+from erigon:devel-inst as erigon_builder
 from geth:master-inst as geth_builder
 from nethermind:kiln as nethermind_builder
 from geth:bad-block-creator-inst as geth_bad_block_builder
