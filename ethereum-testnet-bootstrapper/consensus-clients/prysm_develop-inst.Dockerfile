@@ -29,9 +29,16 @@ RUN cd /git/src/github.com/prysmaticlabs/prysm && git log -n 1 --format=format:"
 
 #Antithesis Instrumentation
 
-# excluding snappy compression
+# excluding snappy compression and files containing go:build
 RUN touch /opt/antithesis/go_instrumentation/exclusions.txt && \
-echo "beacon-chain/blockchain/checktags_test.go\n\
+echo "beacon-chain/state/genesis/genesis.go\n\
+beacon-chain/p2p/encoder/ssz.go\n\
+beacon-chain/p2p/encoder/message_id.go\n\
+beacon-chain/db/kv/encoding.go\n\
+beacon-chain/p2p/encoder/ssz_test.go\n\
+beacon-chain/p2p/encoder/message_id_test.go\n\
+testing\n\
+beacon-chain/blockchain/checktags_test.go\n\
 beacon-chain/cache/active_balance_disabled.go\n\
 beacon-chain/cache/active_balance.go\n\
 beacon-chain/cache/active_balance_test.go\n\
