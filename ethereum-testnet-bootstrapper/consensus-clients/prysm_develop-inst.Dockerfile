@@ -2,6 +2,16 @@ FROM etb-client-builder:latest as base
 
 FROM base as builder
 
+# requires go 1.18
+run rm /usr/local/bin/gofmt
+run rm /usr/local/bin/go
+run rm -r /usr/local/go
+
+RUN wget https://go.dev/dl/go1.18.linux-amd64.tar.gz
+RUN tar -zxvf go1.18.linux-amd64.tar.gz -C /usr/local/
+RUN ln -s /usr/local/go/bin/go /usr/local/bin/go
+RUN ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
+
 WORKDIR /git
 
 ARG GIT_BRANCH="develop"
