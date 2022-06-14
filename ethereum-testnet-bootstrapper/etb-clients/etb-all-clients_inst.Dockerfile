@@ -28,7 +28,7 @@ copy --from=nethermind_builder /nethermind/ /nethermind/
 copy --from=nethermind_builder /nethermind.version /nethermind.version
 run ln -s /nethermind/Nethermind.Runner /usr/local/bin/nethermind
 copy --from=erigon_builder /usr/local/bin/erigon /usr/local/bin/erigon
-# copy --from=erigon_builder /opt/antithesis/symbols/* /opt/antithesis/symbols/
+copy --from=erigon_builder /opt/antithesis/symbols/* /opt/antithesis/symbols/
 copy --from=erigon_builder /erigon.version /erigon.version
 
 # copy in all of the consensus clients
