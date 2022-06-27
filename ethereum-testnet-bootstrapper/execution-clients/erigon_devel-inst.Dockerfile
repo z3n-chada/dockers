@@ -24,19 +24,57 @@ run git clone --recurse-submodules -j8 \
 RUN touch /opt/antithesis/go_instrumentation/exclusions.txt
 # These exclusions are mostly due to this issue:
 # https://trello.com/c/Wmaxylu9/1271-go-instrumentor-strips-out-v117-conditional-compilation-comments-directives
-RUN echo "cmd/sentry/sentry/sentry_multi_client.go\n\
-interfaces.go\n\
-rules.go\n\
-tools.go\n\
-internal/debug/\n\
-tests/\n\
-core/block_proposer.go\n\
+RUN echo "accounts/abi/bind/bind.go\n\
+accounts/abi/bind/template.go\n\
+cmd/cons/commands/clique.go\n\
+cmd/downloader/trackers/embed.go\n\
+cmd/evm/internal/t8ntool/execution.go\n\
+cmd/observer/observer/handshake.go\n\
+cmd/pics/contracts/gen.go\n\
+cmd/rpcdaemon22/commands/contracts/gen.go\n\
+cmd/rpcdaemon/commands/contracts/gen.go\n\
+common/debug/pprof_cgo.go\n\
+common/fdlimit/fdlimit_bsd.go\n\
+common/fdlimit/fdlimit_unix.go\n\
+common/mclock/mclock.go\n\
+consensus/aura/auraabi/abi.go\n\
+consensus/aura/consensusconfig/embed.go\n\
+consensus/aura/contracts/embed.go\n\
+consensus/aura/test/embed.go\n\
+core/genesis.go\n\
 core/mkalloc.go\n\
+core/state/contracts/gen.go\n\
+core/types/access_list_tx.go\n\
+core/types/block.go\n\
+core/types/log.go\n\
 core/types/receipt_codecgen_gen.go\n\
+core/types/receipt.go\n\
+core/vm/lightclient/multistoreproof.go\n\
+core/vm/logger.go\n\
 crypto/\n\
+eth/ethconfig/config.go\n\
+eth/gasprice/gasprice.go\n\
+eth/stagedsync/stage_mining_create_block.go\n\
+eth/tracers/internal/tracers/tracers.go\n\
+internal/debug/loudpanic_fallback.go\n\
+internal/debug/loudpanic.go\n\
+internal/debug/signal.go\n\
+internal/debug/signal_windows.go\n\
+internal/debug/trace_fallback.go\n\
+internal/debug/trace.go\n\
 p2p/netutil/toobig_notwindows.go\n\
 p2p/netutil/toobig_windows.go\n\
-common/fdlimit/" >> /opt/antithesis/go_instrumentation/exclusions.txt
+p2p/peer.go\n\
+p2p/rlpx/rlpx.go\n\
+p2p/transport.go\n\
+params/config.go\n\
+rules.go\n\
+tests/contracts/gen.go\n\
+tests/fuzzers/bls12381/bls12381_fuzz.go\n\
+tools.go\n\
+turbo/rlphacks/utils_bytes.go\n\
+turbo/snapshotsync/snapshothashes/embed.go\n\
+turbo/trie/trie_root.go" >> /opt/antithesis/go_instrumentation/exclusions.txt
 
 # Antithesis -------------------------------------------------
 WORKDIR /git
