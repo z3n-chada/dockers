@@ -6,7 +6,7 @@ from nethermind:master as nethermind_builder
 from geth:bad-block-creator-inst as geth_bad_block_builder
 from tx-fuzzer:latest as tx_fuzzer_builder
 from lighthouse:unstable-inst as lh_builder
-from nimbus:kiln-dev-auth-inst as nimbus_builder
+from nimbus:unstable-inst as nimbus_builder
 from prysm:develop-inst as prysm_builder
 from teku:master as teku_builder
 from lodestar:master as ls_builder

@@ -2,7 +2,7 @@ FROM z3nchada/etb-client-builder:latest as builder
 
 WORKDIR /git
 # Included here to avoid build-time complaints
-ARG BRANCH="kiln-dev-auth"
+ARG BRANCH="unstable"
 
 RUN git clone https://github.com/status-im/nimbus-eth2.git
 
